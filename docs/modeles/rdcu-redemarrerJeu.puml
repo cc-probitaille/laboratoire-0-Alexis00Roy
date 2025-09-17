@@ -1,6 +1,6 @@
 @startuml
-participant "JeuDeDes" as J
-participant "joueurs:Map<String,Joueur>" as M
+participant ":JeuDeDes" as J
+participant "joueurs:Map<String, Joueur>" as M
 ->J:redemarrerJeu()
 note right:selon Controlleur (JeuDeDes est l'objet racine)
 J->M:clear()
