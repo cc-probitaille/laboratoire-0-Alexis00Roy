@@ -1,5 +1,5 @@
 @startuml dss redemarrer jeu
 actor ":Joueur" as J
 participant ":Système" as S
-J -> S :redémarrer jeu()
+J -> S :redemarrerJeu()
 @enduml
