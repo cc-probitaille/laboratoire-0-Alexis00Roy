@@ -1,29 +1,27 @@
 import supertest from "supertest";
-import { Joueur } from "../../src/core/joueur";
-//import { JeuDeDes } from "../../src/core/jeuDeDes";
+
 import app from "../../src/app";
 
 const request = supertest(app);
 
 describe("GET /api/v1/jeu/redemarrerJeu", () => {
-  let joueur1;
-  let joueur2;
   let game;
   beforeAll(async () => {
-    joueur1 = new Joueur("Joueur1");
-    joueur2 = new Joueur("Joueur2");
-    //game= new JeuDeDes();
+    await request.post("/api/v1/jeu/demarrerJeu").send({ nom: "j1" });
+    await request.post("/api/v1/jeu/demarrerJeu").send({ nom: "j2" });
   });
 
   it("devrait repondre code 200 apres appel de api", async () => {
-    const response = await request.post("/api/v1/jeu/demarrerJeu");
+    const response = await request.get("/api/v1/jeu/redemarrerJeu");
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
   });
 
   it("devrait ne plus y avoir de joueur", async () => {
-    expect(joueur1).toBe(null);
-    expect(joueur2).toBe(null);
+    const response = await request.get("/api/v1/jeu/getjoueurs");
+    expect(response.status).toBe(200);
+    const j = response.body.result;
+    expect(j.length).toBe(0);
   });
 });
 
